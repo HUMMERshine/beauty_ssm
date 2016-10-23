@@ -6,6 +6,9 @@ import com.yingjun.ssm.util.CustomDateSerializer;
 import com.yingjun.ssm.validator.Not999;
 
 import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.util.Date;
 
 public class Goods {
@@ -13,7 +16,7 @@ public class Goods {
 	@Min(900)
 	@Not999  //这个为自定义的验证标签
 	private long goodsId;
-	
+	@NotBlank
 	private String title;
 	
 	private float price;

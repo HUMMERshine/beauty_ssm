@@ -12,11 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -38,10 +42,16 @@ public class GoodsController {
         return "goodslist";
     }
 
-    @RequestMapping(value = "/{goodsId}/buy", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    /*requestmapping里的{goodsId}是个占位符，可以匹配路径/buy,并把*的值赋值给goodsId，@valid中Goods类型自动把goodsId获取到。
+    @valid 自动校验的是jsp传来的参数，占位符也是一个参数。如果想使用占位符这个参数就需要@PathVariable("goodsId") Long goodsId这个语句*/
+    @RequestMapping(value = "/{goodsId}/buy", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public BaseResult<Object> buy(@CookieValue(value = "userPhone", required = false) Long userPhone,
+    public BaseResult<Object> buy( @RequestParam HashMap<String, Object> map, @CookieValue(value = "userPhone", required = false) Long userPhone,
         /*@PathVariable("goodsId") Long goodsId*/ @Valid Goods goods, BindingResult result) {
+    	System.out.println("goods : " + goods);
+    	for(String str : map.keySet()){
+    		System.out.println("str : " + str);
+    	}
         LOG.info("invoke----------/" + goods.getGoodsId() + "/buy userPhone:" + userPhone);
         if (userPhone == null) {
             return new BaseResult<Object>(false, ResultEnum.INVALID_USER.getMsg());

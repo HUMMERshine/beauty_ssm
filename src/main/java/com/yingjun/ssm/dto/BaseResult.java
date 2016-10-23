@@ -58,7 +58,8 @@ public class BaseResult<T> implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BaseResult [success=" + success + ", data=" + data + ", error=" + error + "]";
+		String str = "BaseResult {success=" + success + ", data=" + data + ", error=" + error + "}";
+		return str;
 	}
 
 }

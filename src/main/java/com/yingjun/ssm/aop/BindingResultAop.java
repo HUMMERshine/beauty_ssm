@@ -29,6 +29,7 @@ public class BindingResultAop {
         LOG.info("before method invoking!");
         BindingResult bindingResult = null;
         for(Object arg:joinPoint.getArgs()){
+        	//System.out.println("aop:" + arg);
             if(arg instanceof BindingResult){
                 bindingResult = (BindingResult) arg;
             }

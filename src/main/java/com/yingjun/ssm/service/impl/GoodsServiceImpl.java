@@ -77,7 +77,6 @@ public class GoodsServiceImpl implements GoodsService {
 				return;
 			}
 		} else {
-
 			int inserCount = orderDao.insertOrder(user.getUserId(), goodsId, "普通买卖");
 			if (inserCount <= 0) {
 				// 买卖失败
